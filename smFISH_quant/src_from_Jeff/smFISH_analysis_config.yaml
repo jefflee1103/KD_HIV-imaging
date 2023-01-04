@@ -1,0 +1,50 @@
+# General configuration
+## The number of processes in the pool of processes
+number_of_workers: 4
+## The directory with images
+input_pattern: /Users/jefflee/Downloads/Batch_Image_Export/*.tif
+## The directory where the big-fish output data will be stored
+output_dir: /Users/jefflee/Downloads/Batch_Image_Export/output
+## The directory where the reference spot output data will be stored
+output_refspot_dir: /Users/jefflee/Downloads/Batch_Image_Export/output_ref_spot
+## The channels for which to run the processing (0-based)
+channels: [2] # Use [2, 3] format for 2 smFISH channels to quantify
+
+# Cellpose configuration
+## Channel to segment (0-based)
+seg_ch: 1
+## If using FISH channel as mask, clipping the intensity value can help aid segmentation
+## Define if clipping will be applied and if true, the maximum intensity value to clip
+cp_apply_clip: False
+cp_clip_value: 50
+## Median filter radius to aid segmentation
+median_filter: 20
+## Cellpose parameters
+diameter: 325
+flow_threshold: 0.9
+cellprob_threshold: -6
+do_3D: False # Enable 3D segmentation of 4D data
+## Boolean flag to toggle GPU support in Cellpose
+gpu: False
+
+# Bigfish configuration
+## Image voxel sizes
+voxel_size_yx: 65
+voxel_size_z: 200
+## PSF parameters
+ex: 570
+em: 610
+NA: 1.4
+RI: 1.364
+microscope: confocal # widefield or nipkow
+## Bigfish single-spot detection parameters
+bg_radius: 5
+smFISH_ch1: 2
+smFISH_ch1_thresh: 50
+smFISH_ch2: 3
+smFISH_ch2_thresh: 30
+# Bigfish cluster decomp and foci detection parameters
+alpha: 0.7
+beta: 1
+bf_radius: 350
+nb_min_spots: 4
