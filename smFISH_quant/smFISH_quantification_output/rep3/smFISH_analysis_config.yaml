@@ -1,10 +1,10 @@
 # General configuration
 ## The number of processes in the pool of processes
-number_of_workers: 4
+number_of_workers: 12
 ## The directory with images
-input_pattern: /Users/jefflee/Downloads/Batch_Image_Export/*.tif
+input_pattern: F:\Kate_smFISH\rep3\*.tiff
 ## The directory where the big-fish output data will be stored
-output_dir: /Users/jefflee/Downloads/Batch_Image_Export/output
+output_dir: C:\Users\sjoh4548\KD_HIV-imaging\smFISH_quant\smFISH_quantification_output\rep3
 # ## The directory where the reference spot output data will be stored
 # output_refspot_dir: /Users/jefflee/Downloads/Batch_Image_Export/output_ref_spot
 ## The channels for which to run the processing (0-based)

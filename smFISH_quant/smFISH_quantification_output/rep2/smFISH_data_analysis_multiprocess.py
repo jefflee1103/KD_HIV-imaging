@@ -104,7 +104,7 @@ def image_processing_function(image_loc, config):
         #     threshold = config["smFISH_ch2_thresh"]
         # else:
         #     print("smFISH channel and threshold not correctly defined!")
-        
+
         # tresholding
         if 'WT_HIV' in image_name:
             threshold = config["smFISH_thresh_WT_HIV"]
@@ -204,7 +204,7 @@ def main():
 
     # Check if output directories exists; try to create them if they don't
     pathlib.Path(config["output_dir"]).mkdir(exist_ok=True)
-    pathlib.Path(config["output_refspot_dir"]).mkdir(exist_ok=True)
+    #pathlib.Path(config["output_refspot_dir"]).mkdir(exist_ok=True)
 
     # Fill the job queue either with local files identified using the input path pattern
     image_paths = glob.glob(config["input_pattern"])
