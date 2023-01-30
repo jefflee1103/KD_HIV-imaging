@@ -32,3 +32,5 @@ annotated_df %>%
     scale_y_log10() +
     theme_minimal()
 
+View(annotated_df)
+write_csv(annotated_df, "~/Desktop/KD_HIV-smFISH_72hpi_v1.csv")
