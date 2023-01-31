@@ -2,7 +2,6 @@
 
 library(tidyverse)
 library(ggbeeswarm)
-library(skimr)
 
 ##
 raw_csvs_files <- list.files(
@@ -31,18 +30,26 @@ annotated_df <- raw_csvs %>%
         str_detect(file_name, "WT_no_virus") ~ "WT Mock",
         str_detect(file_name, "MKRN1KO") ~ "MKRN1KO HIV"
     )) %>%
-    mutate(condition = fct_relevel(condition, c("WT Mock", "WT HIV", "MKRN1KO HIV")))
-
-skim(annotated_df)
+    mutate(condition = fct_relevel(
+        condition,
+        c("WT Mock", "WT HIV", "MKRN1KO HIV")
+    ))
 
 ##
+colours <- c("gray70", "dodgerblue", "coral")
+
 annotated_df %>%
     ggplot(aes(x = condition, y = total_RNAs + 1, colour = condition)) +
     geom_quasirandom(alpha = 0.5, stroke = 0) +
     # geom_violin(position = position_dodge(width = 0.5)) +
     # geom_boxplot(width = 0.1, position = position_dodge(width = 0.5)) +
-    labs(x = "Condition", y = "Intracellular Viral RNA (+1 log)", colour = "Condition") + 
+    labs(
+        x = "Condition", 
+        y = "Intracellular Viral RNA (+1 log)", 
+        colour = "Condition"
+    ) + 
     scale_y_log10() +
+    scale_colour_manual(values = colours) + 
     facet_wrap(~ time) +
     theme_minimal()
 
