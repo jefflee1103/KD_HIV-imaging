@@ -35,7 +35,11 @@ annotated_df <- raw_csvs %>%
         c("WT Mock", "WT HIV", "MKRN1KO HIV")
     ))
 
-##
+## Write csv
+View(annotated_df)
+write_tsv(annotated_df, "./smFISH_quant/smFISH_quantification_output/final_outpus/combined_tidy_output.txt")
+
+## Plot
 colours <- c("gray70", "dodgerblue", "coral")
 
 annotated_df %>%
@@ -53,8 +57,6 @@ annotated_df %>%
     facet_wrap(~ time) +
     theme_minimal()
 
-View(annotated_df)
-write_csv(annotated_df, "~/Desktop/KD_HIV-smFISH_72hpi_v1.csv")
 
 ##
 
