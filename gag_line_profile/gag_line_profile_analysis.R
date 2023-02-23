@@ -82,7 +82,10 @@ df_discretised_adjusted <- df_discretised %>%
     mutate(gray_value_by_discrete_distance_adj = gray_value_by_discrete_distance * adj_factor)
 
 ## Plot
+df_discretised_adjusted <- read_csv("./gag_line_profile/df_discretised_adjusted.csv")
 breaks_to_plot <- c(TRUE, rep(FALSE, 19))
+
+### For gag protein
 df_discretised_adjusted %>%
     filter(channel == "Gag") %>%
     filter(condition != "WT Mock") %>%
@@ -100,9 +103,30 @@ df_discretised_adjusted %>%
     scale_x_discrete(breaks = function(x){x[breaks_to_plot]}) +
     theme_classic()
 
-## Save df output and plot
-write_csv(df_discretised_adjusted, "./gag_line_profile/df_discretised_adjusted.csv")
 ggsave("./gag_line_profile/gag_line_profile_plot.pdf", height = 8, width = 10)
+
+### For HIV RNA
+df_discretised_adjusted %>%
+    filter(channel == "RNA") %>%
+    filter(condition != "WT Mock") %>%
+    filter(!is.na(discrete_distance)) %>%
+    ggplot(aes(x = as.factor(discrete_distance), y = gray_value_by_discrete_distance_adj, colour = condition, group = condition)) +
+    geom_line(stat = "summary", alpha = 0.2, size = 0.3) + 
+    geom_pointrange(stat = "summary", size = 0.1, alpha = 0.3) +
+    facet_wrap(~time, nrow = 3) +
+    labs(
+        x = "Cell cross-secion distance (AU)",
+        y = "Normalised Gag fluorescence intensity (AU)",
+        colour = "Condition"
+        ) +
+    scale_colour_manual(values = c("dodgerblue", "coral")) +
+    scale_x_discrete(breaks = function(x){x[breaks_to_plot]}) +
+    theme_classic()
+
+ggsave("./gag_line_profile/rna_line_profile_plot.pdf", height = 8, width = 10)
+
+## Save df output
+write_csv(df_discretised_adjusted, "./gag_line_profile/df_discretised_adjusted.csv")
 
 ## Statistics
 ### Testing ratio of Area under curve between inner and outer regions
